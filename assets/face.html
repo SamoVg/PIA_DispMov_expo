@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Reconocimiento Facial</title>
+    <script defer src="https://cdn.jsdelivr.net/npm/face-api.js"></script>
+  </head>
+  <body>
+    <video id="video" width="320" height="240" autoplay muted></video>
+    <script>
+      const registeredUsers = [
+        {
+          name: 'Juan',
+          descriptor: new Float32Array([/* copia el descriptor generado durante registro */])
+        },
+        {
+          name: 'Ana',
+          descriptor: new Float32Array([/* otro descriptor */])
+        }
+      ];
+
+      async function loadModels() {
+        await faceapi.nets.tinyFaceDetector.loadFromUri('/models');
+        await faceapi.nets.faceRecognitionNet.loadFromUri('/models');
+        await faceapi.nets.faceLandmark68Net.loadFromUri('/models');
+      }
+
+      async function start() {
+        await loadModels();
+        const video = document.getElementById('video');
+        navigator.mediaDevices.getUserMedia({ video: {} })
+          .then(stream => video.srcObject = stream);
+
+        video.addEventListener('play', async () => {
+          const canvas = faceapi.createCanvasFromMedia(video);
+          document.body.append(canvas);
+
+          const displaySize = { width: video.width, height: video.height };
+          faceapi.matchDimensions(canvas, displaySize);
+
+          setInterval(async () => {
+            const detections = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceDescriptors();
+            const resizedDetections = faceapi.resizeResults(detections, displaySize);
+
+            if (detections.length > 0) {
+              const descriptor = detections[0].descriptor;
+              const bestMatch = findClosestMatch(descriptor);
+              if (bestMatch) {
+                window.ReactNativeWebView?.postMessage(JSON.stringify({ user: bestMatch }));
+              }
+            }
+          }, 1000);
+        });
+      }
+
+      function findClosestMatch(descriptor) {
+        let bestUser = null;
+        let minDistance = Infinity;
+
+        for (let user of registeredUsers) {
+          const dist = faceapi.euclideanDistance(descriptor, user.descriptor);
+          if (dist < 0.6 && dist < minDistance) {
+            bestUser = user.name;
+            minDistance = dist;
+          }
+        }
+
+        return bestUser;
+      }
+
+      start();
+    </script>
+  </body>
+</html>
