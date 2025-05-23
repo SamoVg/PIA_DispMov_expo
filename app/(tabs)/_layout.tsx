@@ -7,13 +7,28 @@ const RootLayout = () => {
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: "#ffd33d",
-        headerShown: true,
+        headerShown: false,
       }}
     >
       <Tabs.Screen
-        name="index"
+        name="grupos"
         options={{
-          title: "Home", // Añadir un título
+          title: "Grupos",
+          headerShown: false,
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons
+              name={focused ? "school" : "school-outline"}
+              size={30}
+              color={color}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="asistencia"
+        options={{
+          title: "Asistencias",
+          headerShown: false,
           tabBarIcon: ({ color, focused }) => (
             <Ionicons
               name={focused ? "home-sharp" : "home-outline"}
@@ -23,34 +38,6 @@ const RootLayout = () => {
           ),
         }}
       />
-      <Tabs.Screen
-        name="Grupos"
-        options={{
-          title: "Grupos",
-          tabBarIcon: ({ color, focused }) => (
-            <Ionicons
-              name={focused ? "school" : "school-outline"}
-              size={30}
-              color={color}
-            />
-          ),
-        }}
-      />
-
-      <Tabs.Screen
-        name="Asistencias"
-        options={{
-          title: "Grupos",
-          tabBarIcon: ({ color, focused }) => (
-            <Ionicons
-              name={focused ? "school" : "school-outline"}
-              size={30}
-              color={color}
-            />
-          ),
-        }}
-      />
-
     </Tabs>
   );
 };

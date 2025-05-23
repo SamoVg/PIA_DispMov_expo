@@ -1,18 +1,45 @@
-import { Stack } from 'expo-router'
-import React from 'react'
+import { Ionicons } from "@expo/vector-icons";
+import { Tabs } from "expo-router";
+import React from "react";
 
-const rootLayout = () => {
+const RootLayout = () => {
   return (
-    <Stack>
-      <Stack.Screen 
-      name='(tabs)'
-      options={{
-        headerShown: false
+    <Tabs
+      screenOptions={{
+        tabBarActiveTintColor: "#ffd33d",
+        headerShown: false,
       }}
+    >
+      <Tabs.Screen
+        name="grupos"
+        options={{
+          title: "Grupos",
+          headerShown: false,
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons
+              name={focused ? "school" : "school-outline"}
+              size={30}
+              color={color}
+            />
+          ),
+        }}
       />
-      <Stack.Screen name="+not-found" options={{}}></Stack.Screen>
-    </Stack>
-  )
-}
+      <Tabs.Screen
+        name="asistencia"
+        options={{
+          title: "Asistencias",
+          headerShown: false,
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons
+              name={focused ? "home-sharp" : "home-outline"}
+              size={30}
+              color={color}
+            />
+          ),
+        }}
+      />
+    </Tabs>
+  );
+};
 
-export default rootLayout
+export default RootLayout;

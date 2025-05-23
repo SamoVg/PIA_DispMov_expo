@@ -1,0 +1,69 @@
+import MenuButton from "@/components/menuButton";
+import React, { useState } from "react";
+import { StyleSheet, Text, TextInput, View } from "react-native";
+import { globalStyles } from "../../../globalStyles";
+
+export default function Grupos() {
+  const [form, setForm] = useState({
+    nombre: "",
+    matricula: "",
+  });
+
+  const handleChange = (name: string, value: string) => {
+    setForm({
+      ...form,
+      [name]: value,
+    });
+  };
+
+  return (
+    <View style={[styles.container]}>
+      <Text style={[globalStyles.title]}>Prueba</Text>
+
+      <TextInput
+        style={[styles.formInput]}
+        placeholder="Ej: Alan"
+        value={form.nombre}
+        onChangeText={(value) => handleChange("nombre", value)}
+      />
+      <TextInput
+        style={[styles.formInput]}
+        placeholder="Matricula"
+        value={form.matricula}
+        onChangeText={(value) => handleChange("matricula", value)}
+      />
+      <View style={[styles.otherContainer]}>
+        <MenuButton title="Registrar Grupos" href={"/grupos/crearGrupo"}/>
+        <MenuButton title="Registrar Estudiantes" href={"/grupos/registrarEstudiante"}/>
+
+      </View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "flex-start",
+    margin: 20,
+  },
+  link: {
+    textDecorationLine: "underline",
+    fontSize: 20,
+  },
+  formInput: {
+    width: "100%",
+    borderWidth: 1,
+    borderColor: "#ccc",
+    borderRadius: 8,
+    padding: 10,
+    marginVertical: 10,
+  },
+  otherContainer: {
+    width: "100%",
+    flex: 1,
+    flexWrap: "wrap",
+    flexDirection: "row",
+  },
+});
