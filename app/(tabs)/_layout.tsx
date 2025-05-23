@@ -11,6 +11,20 @@ const RootLayout = () => {
       }}
     >
       <Tabs.Screen
+        name="asistencia"
+        options={{
+          title: "Asistencias",
+          headerShown: false, 
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons
+              name={focused ? "home-sharp" : "home-outline"}
+              size={30}
+              color={color}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
         name="grupos"
         options={{
           title: "Grupos",
@@ -24,20 +38,8 @@ const RootLayout = () => {
           ),
         }}
       />
-      <Tabs.Screen
-        name="asistencia"
-        options={{
-          title: "Asistencias",
-          headerShown: false,
-          tabBarIcon: ({ color, focused }) => (
-            <Ionicons
-              name={focused ? "home-sharp" : "home-outline"}
-              size={30}
-              color={color}
-            />
-          ),
-        }}
-      />
+
+
     </Tabs>
   );
 };
