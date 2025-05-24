@@ -48,7 +48,7 @@ export default function crearGrupo() {
 
       <ModalSimple isOpen={modalVisible}>
         <View>
-          <Text>{respuesta.status}</Text>
+          <Text>Grupo Creado</Text>
         </View>
       </ModalSimple>
     </View>

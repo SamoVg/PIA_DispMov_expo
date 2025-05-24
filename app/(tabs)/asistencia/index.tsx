@@ -1,28 +1,36 @@
 import MenuButton from "@/components/menuButton";
 import { globalStyles } from "@/globalStyles";
-import React, { useEffect, useState } from "react";
+import { useFocusEffect } from '@react-navigation/native';
+import React, { useCallback, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
+
 export default function Inicio() {
   const [grupos, setGrupos] = useState([]);
 
-  useEffect(() => {
+  const obtenerGrupos = () => {
     fetch("https://engaged-pup-nearby.ngrok-free.app/Grupos/ObtenerTodosGrupos")
       .then((res) => {
         if (!res.ok) throw new Error("Error al obtener los grupos");
-        return res.json(); // convierte la respuesta a JSON
+        return res.json();
       })
       .then((data) => {
-        setGrupos(data.data); // actualiza el estado con los grupos
+        console.log(data.data);
+        setGrupos(data.data);
       })
       .catch((error) => {
         console.error("Error al cargar grupos:", error);
       });
-  }, []);
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      obtenerGrupos();
+    }, [])
+  );
 
   return (
     <View style={[styles.mainContainer]}>
       <Text style={[globalStyles.title]}>Grupos</Text>
-
       <View style={[styles.menuContainer]}>
         {grupos.map((grupo, index) => (
           <MenuButton
