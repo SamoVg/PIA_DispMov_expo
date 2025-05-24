@@ -18,24 +18,10 @@ export default function Grupos() {
 
   return (
     <View style={[styles.container]}>
-      <Text style={[globalStyles.title]}>Prueba</Text>
+      <Text style={[globalStyles.title]}>Informacion de Grupos</Text>
 
-      <TextInput
-        style={[styles.formInput]}
-        placeholder="Ej: Alan"
-        value={form.nombre}
-        onChangeText={(value) => handleChange("nombre", value)}
-      />
-      <TextInput
-        style={[styles.formInput]}
-        placeholder="Matricula"
-        value={form.matricula}
-        onChangeText={(value) => handleChange("matricula", value)}
-      />
       <View style={[styles.otherContainer]}>
         <MenuButton title="Registrar Grupos" href={"/grupos/crearGrupo"}/>
-        <MenuButton title="Registrar Estudiantes" href={"/grupos/registrarEstudiante"}/>
-
       </View>
     </View>
   );

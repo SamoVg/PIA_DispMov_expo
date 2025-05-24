@@ -2,7 +2,7 @@
 import ModalSimple from "@/components/ModalSimple";
 import { globalStyles } from "@/globalStyles";
 import { useState } from "react";
-import { Pressable, Text, TextInput, View } from "react-native";
+import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
 export default function crearGrupo() {
   const [form, setForm] = useState({ nombre: "" });
@@ -34,10 +34,10 @@ export default function crearGrupo() {
     }
   };
   return (
-    <View>
-      <Text>Nombre del grupo</Text>
+    <View style={[style.container]}>
+      <Text style={[globalStyles.text]}>Nombre del grupo</Text>
       <TextInput
-        style={[globalStyles.buttonSecondary]}
+        style={[globalStyles.formInput]}
         placeholder="Ej: Alan"
         value={form.nombre}
         onChangeText={(text) => setForm({"nombre": text})}
@@ -54,3 +54,9 @@ export default function crearGrupo() {
     </View>
   );
 }
+
+const style = StyleSheet.create({
+  container:{
+    margin:5
+  }
+})

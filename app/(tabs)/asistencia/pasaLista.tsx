@@ -42,12 +42,10 @@ export default function pasaLista() {
     });
 
     setUri(photo?.uri ?? null);
-    let name = "alan";
 
     if (photo?.uri) {
       try {
         const formData = new FormData();
-        formData.append("name", name);
 
         // Creamos correctamente el objeto del archivo
         const fileUri =
@@ -81,8 +79,8 @@ export default function pasaLista() {
 
         const data = await response.json();
 
-        if (data.status === 200) {
-          alert("Usuario registrado correctamente");
+        if (data.success === true) {
+          alert(data.message);
         } else {
           alert("Error: " + (data.message || "Respuesta inesperada"));
         }
@@ -105,7 +103,7 @@ export default function pasaLista() {
           contentFit="contain"
           style={{ width: 300, aspectRatio: 1 }}
         />
-        <Button onPress={() => setUri(null)} title="Take another picture" />
+        <Button onPress={() => setUri(null)} title="Volver a tomar asistencia" />
       </View>
     );
   };

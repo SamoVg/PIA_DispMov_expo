@@ -21,6 +21,14 @@ export default function GrupoEspecifico() {
           title={"Registrar Rostro"}
           href={`/asistencia/registrarCara?nombre=${nombre}`}
         ></MenuButton>
+        <MenuButton
+          title={"Estudiantes Enlistados"}
+          href={`/asistencia/estudiantesGrupo?nombre=${nombre}`}
+        ></MenuButton>
+        <MenuButton
+          title={"Asistencias del grupo"}
+          href={`/asistencia/AsistenciasGrupo?nombre=${nombre}`}
+        ></MenuButton>
       </View>
     </View>
   );

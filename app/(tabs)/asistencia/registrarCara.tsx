@@ -1,17 +1,18 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import DropdownComponent from "@/components/dropDown";
+import ModalSimple from "@/components/ModalSimple";
 import { FontAwesome6 } from "@expo/vector-icons";
 import { CameraType, CameraView, useCameraPermissions } from "expo-camera";
 import { Image } from "expo-image";
 import { useLocalSearchParams } from "expo-router";
 import React, { useEffect, useRef, useState } from "react";
 import {
-    Button,
-    Platform,
-    Pressable,
-    StyleSheet,
-    Text,
-    View,
+  Button,
+  Platform,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
 } from "react-native";
 
 export default function registrarCara() {
@@ -19,6 +20,9 @@ export default function registrarCara() {
 
   const [estudiantes, setEstudiantes] = useState([]);
   const [seleccionado, setAlumnoSeleccionado] = useState("")
+  const [respuesta, setRespuesta] = useState("");
+  const [isOpen, setIsOpen] = useState(false)
+
   useEffect(() => {
     fetch(
       `https://engaged-pup-nearby.ngrok-free.app/Grupos/ObtenerAlumnosGrupo/${nombre}`
@@ -44,6 +48,8 @@ export default function registrarCara() {
   const ref = useRef<CameraView>(null);
   const [uri, setUri] = useState<string | null>(null);
   const [facing, setFacing] = useState<CameraType>("front");
+  
+
 
   if (!permission) {
     return null;
@@ -100,9 +106,9 @@ export default function registrarCara() {
         }
 
         const data = await response.json();
-
-        if (data.status === 200) {
-          alert("Usuario registrado correctamente");
+        console.log(data)
+        if (data.success === true) {
+          alert("Rostro registrado correctamente");
         } else {
           alert("Error: " + (data.message || "Respuesta inesperada"));
         }
@@ -169,6 +175,11 @@ export default function registrarCara() {
             console.log("Alumno seleccionado en el padre:", value);
           }}
         ></DropdownComponent>
+          <ModalSimple isOpen={isOpen}>
+            <View>
+              <Text>{respuesta}</Text>
+            </View>
+          </ModalSimple>
       </View>
 
       {uri ? renderPicture() : renderCamera()}

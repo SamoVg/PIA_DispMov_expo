@@ -17,6 +17,14 @@ export default function Layout() {
         name="registrarCara"
         options={{ title: "Registrar Rostro de Estudiante" }}
       />
+       <Stack.Screen
+        name="estudiantesGrupo"
+        options={{ title: "Ver Alumnos inscritos" }}
+      />
+             <Stack.Screen
+        name="AsistenciasGrupo"
+        options={{ title: "Ver Asistencias del grupo" }}
+      />
     </Stack>
   );
 }
